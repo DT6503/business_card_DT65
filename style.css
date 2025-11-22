@@ -1880,40 +1880,14 @@ body {
 }
 
 /* ===== ИСПРАВЛЕНИЕ АДАПТИВА ===== */
-
-/* Планшеты */
-@media (max-width: 1024px) {
-    .container {
-        padding: 0 1.5rem;
-        gap: 3rem;
-    }
-    
-    .hero-content h1 {
-        font-size: 2.8rem;
-    }
-    
-    .technologies-grid {
-        grid-template-columns: 1fr !important;
-        gap: 1.5rem;
-    }
-    
-    .tech-card {
-        width: 100%;
-        max-width: 100%;
-    }
-    
-    .footer-main {
-        grid-template-columns: 1fr 1fr;
-    }
-    
-    .cookie-container {
-        right: 50px !important;
-        top: 150px !important;
-    }
-}
-
-/* Мобильные устройства */
+/* ЧИСТЫЙ АДАПТИВ БЕЗ КОНФЛИКТОВ */
 @media (max-width: 768px) {
+    /* БАЗОВЫЕ ИСПРАВЛЕНИЯ ДЛЯ ВСЕГО САЙТА */
+    body {
+        overflow-x: hidden;
+        width: 100%;
+    }
+    
     /* HEADER */
     .nav {
         padding: 0 1rem;
@@ -1947,18 +1921,26 @@ body {
     }
     
     /* HERO SECTION */
+    .hero {
+        padding: 80px 0 40px;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+    }
+    
     .container {
         flex-direction: column;
         text-align: center;
-        gap: 2.5rem;
-        min-height: auto;
-        padding-top: 2rem;
-        padding-bottom: 2rem;
+        gap: 2rem;
+        padding: 0 1.5rem;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 100%;
     }
     
     .hero-content {
         width: 100%;
-        padding: 0;
+        order: 2;
     }
     
     .hero-content h1 {
@@ -1972,20 +1954,18 @@ body {
     }
     
     .hero-content p {
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: 1rem;
-        border-left-width: 2px;
+        margin: 0 auto 2rem;
+        padding: 0 1rem 0 1.5rem;
         text-align: left;
         max-width: 100%;
     }
     
     .hero-image {
-        flex: 0 0 300px;
-        order: -1;
+        flex: none;
         width: 100%;
-        max-width: 400px;
+        max-width: 300px;
         margin: 0 auto;
+        order: 1;
     }
     
     .hero-image img {
@@ -1995,23 +1975,24 @@ body {
     .hero-buttons {
         justify-content: center;
         flex-wrap: wrap;
-        width: 100%;
     }
     
     .btn {
-        width: auto;
         min-width: 200px;
+        justify-content: center;
     }
     
-    /* SECTIONS */
+    /* СЕКЦИИ */
     .section-title {
         font-size: 2.5rem;
         margin-bottom: 2rem;
+        text-align: center;
     }
     
     .section-subtitle {
         font-size: 1.1rem;
         margin-bottom: 2.5rem;
+        text-align: center;
         padding: 0 1rem;
     }
     
@@ -2025,47 +2006,46 @@ body {
     .portfolio-card {
         width: 100%;
         max-width: 400px;
-        min-height: auto;
-        padding: 1.5rem;
-    }
-    
-    .project-emoji {
-        font-size: 2.5rem;
     }
     
     /* TECHNOLOGIES */
     .technologies-grid {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: 1fr;
         gap: 1.5rem;
     }
     
     .tech-card {
-        padding: 2rem 1.5rem;
         width: 100%;
-        max-width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
     }
     
-    .tech-title {
-        font-size: 1.3rem;
-    }
-    
-    /* ACHIEVEMENTS */
+    /* ACHIEVEMENTS - УБИРАЕМ ЛИНИИ */
     .achievements-timeline::before {
-        left: 25px;
+        display: none;
+    }
+    
+    .badge-line {
+        display: none;
+    }
+    
+    .achievement-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
     
     .achievement-badge {
-        margin-right: 1.5rem;
-    }
-    
-    .badge-icon {
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
+        margin-right: 0;
+        margin-bottom: 1rem;
     }
     
     .achievement-content {
-        padding: 1.5rem;
+        text-align: center;
+    }
+    
+    .achievement-item:hover .achievement-content {
+        transform: none;
     }
     
     /* CONTACT */
@@ -2074,21 +2054,17 @@ body {
         gap: 2.5rem;
     }
     
-    .contact-form-container {
-        padding: 2rem;
-    }
-    
-    .contact-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 1.25rem;
+    .contact-form-container,
+    .contact-info {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
     }
     
     /* FOOTER */
     .footer-main {
         grid-template-columns: 1fr;
         text-align: center;
-        gap: 2rem;
     }
     
     .footer-logo {
@@ -2104,7 +2080,7 @@ body {
         gap: 1rem;
     }
     
-    /* HIDE ELEMENTS ON MOBILE */
+    /* СКРЫВАЕМ ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ */
     .photo-pattern,
     .side-image,
     .pattern-photo[data-vertical],
@@ -2115,63 +2091,50 @@ body {
         display: none;
     }
     
-    /* АДАПТИВ ДЛЯ РОБОТОВ И АКТИВАТОРОВ */
+    /* АКТИВАТОРЫ И РОБОТЫ */
     .activator-emoji {
-        font-size: 32px !important;
+        font-size: 28px;
     }
     
     .cookie-emoji {
-        font-size: 32px !important;
+        font-size: 28px;
     }
     
     .cookie-container {
-        right: 20px !important;
-        top: 100px !important;
+        right: 20px;
+        top: 100px;
     }
     
-    .gigachat-image {
-        width: 140px !important;
-        height: 140px !important;
+    /* РОБОТЫ - ОДИНАКОВЫЙ РАЗМЕР */
+    .robot-gigachat .gigachat-image {
+        width: 160px;
+        height: 160px;
     }
     
-    /* КОРРЕКТИРОВКИ ПОЗИЦИЙ АКТИВАТОРОВ */
-    #technologies .activator-container {
-        top: 100px !important;
-        left: 20px !important;
-    }
-
-    #contact .activator-container {
-        top: 50px !important;
-        right: 20px !important;
-    }
-
-    #achievements .activator-container {
-        top: 50px !important;
-        right: 20px !important;
-    }
-    
-    /* РОБОТЫ */
-    #technologies .robot-gigachat {
-        top: 150px !important;
-        right: -100px !important;
+    /* ПОЗИЦИИ РОБОТОВ */
+    #home .robot-gigachat {
+        bottom: 30px;
+        right: 20px;
     }
     
     #portfolio .robot-gigachat {
-        bottom: 10px !important;
-        right: 400px !important;
+        bottom: 20px;
+        right: 20px;
     }
     
-    #home .robot-gigachat {
-        top: auto !important;
-        left: 40px !important;
-        bottom: 30px !important;
-        right: auto !important;
+    #achievements .robot-gigachat {
+        top: 100px;
+        right: 20px;
     }
     
-    .robot-gigachat,
-    .robot-gigachat.active {
-        filter: none !important;
-        box-shadow: none !important;
+    #technologies .robot-gigachat {
+        top: 100px;
+        right: 20px;
+    }
+    
+    #contact .robot-gigachat {
+        bottom: 30px;
+        left: 20px;
     }
     
     .robot-trail {
@@ -2179,20 +2142,32 @@ body {
     }
 }
 
-/* Маленькие мобильные */
+/* ОСНОВНОЙ АДАПТИВ ДЛЯ ВСЕХ МОБИЛЬНЫХ */
+@media (max-width: 768px) {
+    /* РОБОТ В ПОРТФОЛИО - ОДИН РАЗ И НАВСЕГДА */
+    #portfolio .robot-gigachat {
+        bottom: 7px;
+        left: 20% !important;
+        right: auto !important;
+    }
+
+  #technologies .robot-gigachat {
+        top: 160px;
+        right: 30% !important;
+        left: auto !important;
+    }
+
+
+}
+
+/* МАЛЕНЬКИЕ МОБИЛЬНЫЕ */
 @media (max-width: 480px) {
     .container {
         padding: 0 1rem;
     }
     
-    .hero {
-        padding-top: 70px;
-        min-height: 100vh;
-    }
-    
     .hero-content h1 {
         font-size: 2rem;
-        margin-bottom: 1rem;
     }
     
     .hero-content h2 {
@@ -2201,7 +2176,6 @@ body {
     
     .hero-content p {
         font-size: 0.95rem;
-        margin-bottom: 2rem;
     }
     
     .hero-buttons {
@@ -2212,133 +2186,225 @@ body {
     .btn {
         width: 100%;
         max-width: 280px;
-        justify-content: center;
     }
     
     .hero-image {
-        flex: 0 0 250px;
+        max-width: 280px;
     }
     
     .hero-image img {
-        height: 250px;
+        height: 280px;
     }
     
-    .social-links {
-        justify-content: center;
-    }
-    
-    /* SECTIONS */
     .section-title {
         font-size: 2rem;
-        margin-bottom: 1.5rem;
     }
     
     .section-subtitle {
         font-size: 1rem;
-        margin-bottom: 2rem;
     }
     
-    /* PORTFOLIO */
-    .portfolio-card {
-        min-height: auto;
-        padding: 1.25rem;
-    }
-    
-    .portfolio-title {
-        font-size: 1.2rem;
-    }
-    
-    /* ACHIEVEMENTS */
-    .achievement-item {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 2rem;
-    }
-    
-    .achievement-badge {
-        margin-right: 0;
-        margin-bottom: 1rem;
-    }
-    
-    .badge-line {
-        display: none;
-    }
-    
-    .achievements-timeline::before {
-        display: none;
-    }
-    
-    .achievement-content {
-        padding: 1.25rem;
-    }
-    
-    /* TECHNOLOGIES */
-    .tech-card {
-        padding: 1.5rem 1.25rem;
-    }
-    
-    .tech-icon {
-        width: 60px;
-        height: 60px;
-    }
-    
-    /* АДАПТИВ ДЛЯ РОБОТОВ И АКТИВАТОРОВ */
+    /* АКТИВАТОРЫ И РОБОТЫ */
     .activator-emoji {
-        font-size: 28px !important;
+        font-size: 24px;
     }
     
     .cookie-emoji {
-        font-size: 28px !important;
+        font-size: 24px;
     }
     
     .cookie-container {
-        right: 15px !important;
-        top: 80px !important;
+        right: 15px;
+        top: 80px;
     }
     
-    .gigachat-image {
-        width: 120px !important;
-        height: 120px !important;
+    .robot-gigachat .gigachat-image {
+        width: 140px;
+        height: 140px;
     }
     
-    #technologies .activator-container {
-        top: 80px !important;
-        left: 15px !important;
+    /* ОБНОВЛЕННЫЕ ПОЗИЦИИ - УБИРАЕМ #portfolio ОТСЮДА */
+    #home .robot-gigachat {
+        bottom: 20px;
+        right: 15px;
     }
     
-    #technologies .robot-gigachat {
-        top: 70px !important;
-        right: 15px !important;
+    /* #portfolio .robot-gigachat УДАЛИЛА ЭТУ СТРОКУ ОТСЮДА */
+    
+    #achievements .robot-gigachat {
+        top: 80px;
+        right: 65px;
     }
     
-    #portfolio .robot-gigachat {
-        bottom: 25px !important;
-        right: 15px !important;
+   
+    
+    #contact .robot-gigachat {
+        bottom: 20px;
+        left: 15px;
     }
 }
 
-/* Запрет прокрутки при открытом меню */
+/* ПЕРЕМЕЩАЕМ ТОРТИК НИЖЕ В АДАПТИВЕ */
+@media (max-width: 768px) {
+    #contact .activator-container {
+        top: 75px !important; /* Было 40px - поднимаем ниже */
+        right: 30px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #contact .activator-container {
+        top: 70px !important; /* Было 40px - поднимаем ниже */
+        right: 20px !important;
+    }
+}
+
+/* ЗАПРЕТ ПРОКРУТКИ ПРИ ОТКРЫТОМ МЕНЮ */
 body.menu-open {
     overflow: hidden;
 }
 
-/* FIX FOR TOUCH DEVICES */
-@media (hover: none) and (pointer: coarse) {
-    .btn:hover,
-    .social-links a:hover,
-    .portfolio-card:hover,
-    .tech-card:hover,
-    .contact-card:hover,
-    .social-contact-link:hover,
-    .social-link:hover {
-        transform: none !important;
+
+/**/
+/* ФИКСАЦИЯ КОНТЕНТА ПО ЦЕНТРУ В АДАПТИВЕ */
+@media (max-width: 768px) {
+    /* ЦЕНТРИРОВАНИЕ ВСЕХ ОСНОВНЫХ КОНТЕЙНЕРОВ */
+    .container,
+    .achievements-container,
+    .portfolio-container,
+    .technologies-container,
+    .contact-container,
+    .footer-container {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
     }
     
-    .hero-image:hover img {
-        transform: none;
+    /* ЦЕНТРИРОВАНИЕ ВСЕХ СЕКЦИЙ */
+    .hero,
+    .achievements-section,
+    .portfolio-section,
+    .technologies-section,
+    .contact-section {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: 100% !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* ЦЕНТРИРОВАНИЕ ТЕКСТА */
+    .hero-content h1,
+    .hero-content h2,
+    .section-title,
+    .section-subtitle {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    
+    /* ЦЕНТРИРОВАНИЕ КОНТЕНТА В ГЕРОЙ СЕКЦИИ */
+    .hero-content p {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        text-align: center !important;
+    }
+    
+    /* ЦЕНТРИРОВАНИЕ КНОПОК */
+    .hero-buttons {
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    
+    /* ЦЕНТРИРОВАНИЕ КАРТОЧЕК */
+    .portfolio-grid,
+    .technologies-grid {
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    
+    /* ФИКС ДЛЯ ВЫХОДА ЗА ГРАНИЦЫ */
+    body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+    }
+    
+    * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
 }
 
-.footer-links a:hover {
-    padding-left: 0 !important;
+/* ДОПОЛНИТЕЛЬНЫЙ ФИКС ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ЭКРАНОВ */
+@media (max-width: 480px) {
+    .container,
+    .achievements-container,
+    .portfolio-container,
+    .technologies-container,
+    .contact-container {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    
+    /* ПРИНУДИТЕЛЬНОЕ ЦЕНТРИРОВАНИЕ ВСЕГО ТЕКСТА */
+    body, 
+    h1, h2, h3, h4, h5, h6,
+    p, span, div, li {
+        text-align: center !important;
+    }
+}
+
+/* ЭКСТРЕННЫЙ ФИКС ЕСЛИ ВСЁ РАВНО СЪЕЗЖАЕТ */
+@media (max-width: 768px) {
+    html, body {
+        width: 100% !important;
+        overflow-x: hidden !important;
+        position: relative !important;
+    }
+    
+    body > * {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+/* ===== ИСПРАВЛЕНИЕ РАЗМЕРА РОБОТА В ДОСТИЖЕНИЯХ ===== */
+#achievements .robot-gigachat .gigachat-image {
+    width: 280px !important;
+    height: 280px !important;
+}
+
+/* ПЕРЕОПРЕДЕЛЯЕМ РАЗМЕРЫ ТОЛЬКО ДЛЯ МОБИЛЬНОЙ ВЕРСИИ */
+@media (max-width: 768px) {
+    #achievements .robot-gigachat .gigachat-image {
+        width: 160px !important;  /* Как у других роботов в мобильной версии */
+        height: 160px !important;
+    }
+    
+    /* Позиционирование робота в достижениях на мобильных */
+    #achievements .robot-gigachat {
+        top: 100px !important;    /* Как в других секциях */
+        right: 10px !important;   /* Как в других секциях */
+        left: auto !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #achievements .robot-gigachat .gigachat-image {
+        width: 140px !important;  /* Как у других роботов на маленьких экранах */
+        height: 140px !important;
+    }
+    
+    #achievements .robot-gigachat {
+        top: 80px !important;     /* Как в других секциях */
+        right: 10px !important;   /* Как в других секциях */
+    }
 }
