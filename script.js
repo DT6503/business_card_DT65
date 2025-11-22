@@ -235,4 +235,81 @@ function preloadOuchSound() {
         
         console.log("Аудио элемент для 'ой' создан и предзагружен");
     }
+
 }
+
+
+
+// Функция для бургер-меню
+function initBurgerMenu() {
+    const burgerMenu = document.getElementById('burgerMenu');
+    const navList = document.querySelector('.nav-list');
+    const body = document.body;
+
+    // Проверяем, существуют ли элементы
+    if (!burgerMenu || !navList) {
+        console.log('Элементы меню не найдены');
+        return;
+    }
+
+    console.log('Бургер-меню инициализировано'); // Для отладки
+
+    // Функция переключения меню
+    function toggleMenu() {
+        burgerMenu.classList.toggle('active');
+        navList.classList.toggle('active');
+        body.classList.toggle('menu-open');
+        
+        console.log('Меню переключено'); // Для отладки
+    }
+
+    // Функция закрытия меню
+    function closeMenu() {
+        burgerMenu.classList.remove('active');
+        navList.classList.remove('active');
+        body.classList.remove('menu-open');
+    }
+
+    // Обработчик клика по бургер-меню
+    burgerMenu.addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggleMenu();
+    });
+
+    // Закрытие меню при клике на ссылку
+    const navLinks = document.querySelectorAll('.nav-list a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            closeMenu();
+        });
+    });
+
+    // Закрытие меню при клике вне его области
+    document.addEventListener('click', function(e) {
+        if (navList.classList.contains('active') && 
+            !navList.contains(e.target) && 
+            !burgerMenu.contains(e.target)) {
+            closeMenu();
+        }
+    });
+
+    // Закрытие меню при нажатии Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && navList.classList.contains('active')) {
+            closeMenu();
+        }
+    });
+
+    // Автоматическое закрытие меню при изменении размера окна
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            closeMenu();
+        }
+    });
+}
+
+// Инициализация при загрузке DOM
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM загружен'); // Для отладки
+    initBurgerMenu();
+});
