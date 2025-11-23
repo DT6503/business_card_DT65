@@ -611,7 +611,7 @@
                 <!-- Технология 6 - Git  -->
                 <div class="tech-card">
                     <div class="tech-icon">
-                        <img src="GitHub.png" alt="C++" class="tech-icon-image">
+                        <img src="Github.png" alt="C++" class="tech-icon-image">
                     </div>
                     <h3 class="tech-title">Git & GitHub</h3>
                     <p class="tech-description">
@@ -723,38 +723,43 @@
 
     </section>
 
+
 <!-- Секция Контакты -->
 <section class="contact-section" id="contact">
     <div class="contact-container">
         <h2 class="section-title">Связаться со мной</h2>
                
         <div class="contact-content">
+           
             <!-- Блок формы -->
-            <div class="contact-form-container">
-                <div class="contact-form">
-                    <div class="form-group">
-                        <input type="text" id="name" class="form-input" placeholder=" ">
-                        <label for="name" class="form-label">Ваше имя</label>
-                    </div>
-                    
-                    <div class="form-group">
-                        <input type="email" id="email" class="form-input" placeholder=" ">
-                        <label for="email" class="form-label">Ваш email</label>
-                    </div>
-                    
-                    <div class="form-group">
-                        <textarea id="message" class="form-input form-textarea" placeholder=" " rows="5"></textarea>
-                        <label for="message" class="form-label">Ваше сообщение</label>
-                    </div>
-                    
-                    <button class="btn btn-primary contact-btn">
-                        <span>Отправить сообщение</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
+<div class="contact-form-container">
+    <form class="contact-form" id="feedbackForm">
+        <div class="form-group">
+            <input type="text" id="name" name="name" class="form-input" placeholder=" " required>
+            <label for="name" class="form-label">Ваше имя</label>
+        </div>
+        
+        <div class="form-group">
+            <input type="email" id="email" name="email" class="form-input" placeholder=" " required>
+            <label for="email" class="form-label">Ваш email</label>
+        </div>
+        
+        <div class="form-group">
+            <textarea id="message" name="message" class="form-input form-textarea" placeholder=" " rows="5" required></textarea>
+            <label for="message" class="form-label">Ваше сообщение</label>
+        </div>
+        
+        <button type="submit" class="btn btn-primary contact-btn">
+            <span>Отправить сообщение</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+
+        <!-- Этот div добавить в конец формы -->
+        <div id="form-message" style="display: none; margin-top: 15px; padding: 10px; border-radius: 5px; text-align: center;"></div>
+    </form>
+</div>
             
             <!-- Блок контактов -->
             <div class="contact-info">
@@ -931,7 +936,97 @@
 <!-- УДАЛИТЕ старый audio элемент с id="robotAudio" -->
     
 </body>
+
+<script>
+    //Формы - ПЕРЕНЕСИТЕ ЭТОТ КОД В САМЫЙ КОНЕЦ ФАЙЛА
+function initContactForm() {
+    const GETFORM_ENDPOINT = 'https://getform.io/f/azygkywb';
+    const feedbackForm = document.getElementById('feedbackForm');
+    
+    if (!feedbackForm) {
+        console.log('⏳ Форма еще не загружена, ждем...');
+        return;
+    }
+    
+    console.log('✅ Форма найдена!');
+    
+    feedbackForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const name = document.getElementById('name');
+        const email = document.getElementById('email'); 
+        const message = document.getElementById('message');
+        const messageEl = document.getElementById('form-message');
+        const btn = this.querySelector('.contact-btn');
+        
+        if (!name || !email || !message || !messageEl) {
+            console.error('❌ Не все элементы формы найдены!');
+            return;
+        }
+        
+        btn.disabled = true;
+        btn.innerHTML = '<span>Отправка...</span>';
+
+        const formData = {
+            name: name.value,
+            email: email.value,
+            message: message.value
+        };
+
+        console.log('📤 Отправка данных:', formData);
+
+        fetch(GETFORM_ENDPOINT, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            console.log('📨 Ответ сервера:', response.status);
+            if (response.ok) {
+                messageEl.textContent = '✅ Сообщение отправлено!';
+                messageEl.style.display = 'block';
+                messageEl.style.background = '#d4edda';
+                messageEl.style.color = '#155724';
+                this.reset();
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+        })
+        .catch(error => {
+            console.error('❌ Ошибка fetch:', error);
+            messageEl.textContent = '❌ Ошибка отправки';
+            messageEl.style.display = 'block';
+            messageEl.style.background = '#f8d7da';
+            messageEl.style.color = '#721c24';
+        })
+        .finally(() => {
+            btn.disabled = false;
+            btn.innerHTML = '<span>Отправить сообщение</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+            
+            setTimeout(() => {
+                if (messageEl) messageEl.style.display = 'none';
+            }, 5000);
+        });
+    });
+}
+
+// Инициализация формы при загрузке DOM
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM загружен');
+    initBurgerMenu();
+    initContactForm(); // ← ДОБАВЬТЕ ЭТУ СТРОКУ
+});
+
+// ИЛИ если форма загружается динамически, добавьте:
+//setTimeout(initContactForm, 1000);
+</script>
+
+
 </html>
+
+
+
+
 
 
 
