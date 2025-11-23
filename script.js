@@ -235,7 +235,6 @@ function preloadOuchSound() {
         
         console.log("Аудио элемент для 'ой' создан и предзагружен");
     }
-
 }
 
 
@@ -313,3 +312,8 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM загружен'); // Для отладки
     initBurgerMenu();
 });
+
+
+
+
+//Формы
